@@ -31,10 +31,23 @@ body {
     font-family: 'Playfair Display', serif;
    
 }
-
+.d-block{
+    display: block !important;
+}
+.d-none{
+    display:none  !important;
+}
+.op-0{
+    opacity: 0 !important;
+}
+.op-1{
+    opacity: 1 !important;
+}
 .container{
     padding: 3.5rem 0 0 0 ;
     height: 100%;
+  
+
    
     @media (max-width:$bp-small){
         padding: 0;
@@ -121,35 +134,8 @@ body {
 
 
 
-@keyframes moveright {
-    0%{
-      opacity: 0;
-      transform: translateX(-10rem);
-    }
-    80%{
-      transform: translateX(2rem);
-    }
-    100%{
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-  @keyframes moveleft {
-    0%{
-      opacity: 0;
-      transform: translateX(10rem);
-    }
-    80%{
-      transform: translateX(-2rem);
-    }
-    100%
-    {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  
-  }
-  
+
+ 
 
 
 
@@ -159,13 +145,14 @@ body {
     display: grid;
  grid-template-rows:  1fr ;
     grid-template-columns: 25vw 1fr;
-    animation:moveleft .4s;
+   // animation:moveleft .4s;
     @media (max-width:$bp-large){
         padding: 5rem  0;
         grid-template-columns: 32vw 1fr;
     }
 background-color: $color-white;
     .left-bar{
+        animation: moveleft .4s;
         padding: 1.5rem 1rem;
       background-color: $color-white;
       background: linear-gradient($color-red-light,$color-red-dark);
@@ -202,6 +189,7 @@ background-color: $color-white;
         
     }
     .right-bar{
+       animation: moveright .4s;
         padding: 3rem 7rem;
    //     background-color: $color-black;
      //   color:$color-white;
@@ -231,6 +219,7 @@ background-color: $color-white;
 
         &__language{
             margin-top: 3rem;
+            
             &__header{
                 text-align: center;
                 font-size: 2rem;
@@ -266,12 +255,18 @@ background-color: $color-white;
                 height: 0.5rem;
                 width: 100%;
                 margin: 0 1rem; 
-                
+               
                 &--known{
                     height: 100%;
                     width:75%;
                     background-color:#FF1744;
+                    display: none;
+                    animation: slideright .2s;
                 }
+            }
+         &:hover .right-bar__language__feild .right-bar__language__bar > .right-bar__language__bar--known{
+                display: block;
+              //  background-color: #444;
             }
         }
     }
@@ -281,27 +276,43 @@ background-color: $color-white;
 
 .project,.template{
     padding: 5rem;
+   
     @media (max-width:$bp-medium){
         padding: 3rem 1rem;
     }
     &__header{
         font-size: 2rem;
         text-align: center;
-        font-weight: 100;
+        
         margin: 1rem 0;
-    }
-    &__discounts{
-        padding: 5rem 0 0 0;
+        letter-spacing: 0.3rem;
+        font-family: 'Cinzel', cursive;
+        font-weight: 900;
+        background-image: linear-gradient($color-red-dark,$color-red-light,$color-red);
 
+        -webkit-background-clip: text;
+        color: transparent;
+        
     }
+    &__discounts,&-preview{
+        padding: 5rem 0 0 0;
+        &:nth-child(odd){
+            animation: moveleft .5s;}
+    
+    &:nth-child(even){
+        animation: moveright .5s;
+    }
+    }
+  
 }
 
 .project-box{
     display: grid;
+
     grid-template-columns: repeat(2,1fr);
     grid-template-rows: 70vh;
     box-shadow: 0.5rem 1.5rem 4rem rgba($color-black,0.2);
-   
+
 @media (max-width:$bp-medium) {
     grid-template-columns: repeat(1,1fr);
     grid-template-rows: 1fr;
@@ -311,6 +322,7 @@ background-color: $color-white;
     display: none;
 }
     &__image{
+       // animation: moveup .5s ease-in  ;
      position: relative;
         img{
             width: 100%;
@@ -318,7 +330,7 @@ background-color: $color-white;
            
         }
        .layer{
-           animation: slideright .4s;
+           animation: fadeIn .4s;
            position: absolute;
            top:50%;
            left:50%;
@@ -337,6 +349,8 @@ background-color: $color-white;
                height: 4rem;
                width: 4rem;
                text-align: center;
+               line-height: 4rem;
+               backface-visibility: hidden;
                box-shadow: 0.5rem .5rem 4rem rgba($color-black,0.5);
              //  padding-top: 0.3rem;
                color:$color-white;
@@ -357,6 +371,7 @@ background-color: $color-white;
        }
     }
     &__text{
+    //  animation:  .5s ease-in  ;
         background: $color-white;
         background-size: cover;
         padding: 1rem;
@@ -478,12 +493,49 @@ background-color: $color-white;
   @keyframes slideright{
     0%{
         opacity: 0;
-    //    width: 0;
+      width: 0;
         overflow: hidden;
       }
       100%{
         opacity: 1;
-    //   width: 100%;
+    //  width: 100%;
 
       }
   }
+  @keyframes moveright {
+    0%{
+      opacity: 0;
+      transform: translateX(-10rem);
+    }
+    80%{
+      transform: translateX(2rem);
+    }
+    100%{
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  @keyframes moveleft {
+    0%{
+      opacity: 0;
+      transform: translateX(10rem);
+    }
+    80%{
+      transform: translateX(-2rem);
+    }
+    100%
+    {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  
+  }
+  @keyframes fadeIn{
+      0%{
+          opacity: 0;
+      }
+      100%{
+          opacity: 1;
+      }
+  }
+  
